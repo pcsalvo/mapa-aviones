@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { MapContainer, TileLayer, Polyline, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Polyline, Rectangle, Popup, Circle } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
 function getRandomColor() {
@@ -13,9 +13,14 @@ function getRandomColor() {
 
 const MapView = ({socket}) => {
     const [data, setData] = useState([]);
+    const [pos, setPos] = useState([]);
+
 
     useEffect(() => {
         socket.on('FLIGHTS', (vuelos) => {setData(vuelos)});
+        socket.on('POSITION', (position) => {
+            setPos((pos) => [...pos, position]);
+        })
         socket.emit('FLIGHTS');
     }, [])
 
@@ -31,17 +36,28 @@ const MapView = ({socket}) => {
         {
             data.map((flight) => 
             <div>
-                <Marker position={flight.origin}>
+                <Circle center={flight.origin} radius={200}>
                 <Popup>
                     Origen del vuelo {flight.code}
                 </Popup>
-                </Marker>
-                <Marker position={flight.destination}>
+                </Circle>
+                <Circle center={flight.destination} radius={200}>
                 <Popup>
                     Destino del vuelo {flight.code}
                 </Popup>
-                </Marker>
-                <Polyline pathOptions={{ color: getRandomColor() }} positions={[flight.origin, flight.destination]} />
+                </Circle>
+                <Polyline key={flight.code} pathOptions={{ color: getRandomColor() }} positions={[flight.origin, flight.destination]} />
+            </div>
+        )}
+
+        {
+            pos.map((posit) => 
+            <div>
+                <Rectangle time={1} bounds={[posit.position, [posit.position[0]+1,posit.position[1]+1]]} pathOptions={{ color: 'black' }}>
+                <Popup>
+                    Vuelo {posit.code}
+                </Popup>
+                </Rectangle>
             </div>
         )}
         </MapContainer>
