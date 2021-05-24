@@ -34,12 +34,17 @@ function App() {
       }
       {
         registrado &&
-          <div>
+        <>
           <h1>Mapa de Aviones</h1>
-          <MapView/>
-          <Chat name={name} socket={socket}/>
-          <InfoVuelo/>
-        </div>
+          <div className='general-elements'>
+            <div className='_left'>
+              <MapView socket={socket}/>
+              <InfoVuelo socket={socket}/>
+            </div>
+            <div className='_right'>
+              <Chat name={name} socket={socket}/>
+            </div>
+        </div></>
       }
     </div>
   );

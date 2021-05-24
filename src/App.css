@@ -12,20 +12,53 @@ h1 {
 .InfoVuelos {
   margin-left: 50px;
   margin-top: 20px;
-  margin-right: 40%;
-  color: brown;
   font-size: 15px;
 }
 
 .ChatVivo {
-  margin-left: 65%;
+  position: static;
   margin-right: 15px;
-  margin-top: 35px;
   color: brown;
 }
 
 .miChat {
   height: 400px;
   overflow: scroll;
+  border: 2px solid black;
+}
+
+.title-chat {
+  color: grey;
+  font-size: 12px;
+}
+
+.body-chat {
+  font-size: 15px;
+}
+
+.general-elements {
+  display: flex;
+}
+
+.general-elements ._left {
+  flex: 2;
+}
+
+.general-elements ._right {
+  flex: 1;
+}
+
+.title-info {
+  margin-left: 20px;
+  font-size: 25px bold;
+}
+
+.body-info {
+  margin-left: 25px;
+  font-size: 15px;
+}
+
+.InfoGral2 {
+  margin-right: 40px;
   border: 2px solid black;
 }

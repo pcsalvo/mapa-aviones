@@ -28,7 +28,7 @@ const Chat = ({ name, socket }) => {
         <div className='ChatVivo'>
             <h3>Chat en Vivo</h3>
             <div className='miChat'>
-                {messages.map((msg) => <div key={msg.name}><div>{msg.name}:{Date(msg.date)}</div><div>{msg.message}</div></div>)}
+                {messages.map((msg) => <div key={msg.name}><div className='title-chat'>{msg.name}:{Date(msg.date)}</div><div className='body-chat'>{msg.message}</div></div>)}
                 <div ref={divRef} ></div>
             </div>
             <form onSubmit={submit}>

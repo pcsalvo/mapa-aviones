@@ -2,7 +2,7 @@ import React from 'react'
 import { MapContainer, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-const MapView = () => {
+const MapView = ({socket}) => {
     return(
     <div>
         <MapContainer
