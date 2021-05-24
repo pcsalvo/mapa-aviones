@@ -53,7 +53,7 @@ const MapView = ({socket}) => {
         {
             pos.map((posit) => 
             <div>
-                <Rectangle time={1} bounds={[posit.position, [posit.position[0]+1,posit.position[1]+1]]} pathOptions={{ color: 'black' }}>
+                <Rectangle time={1} bounds={[posit.position, [posit.position[0]+1,posit.position[1]+1]]} pathOptions={{ color: getRandomColor() }}>
                 <Popup>
                     Vuelo {posit.code}
                 </Popup>
