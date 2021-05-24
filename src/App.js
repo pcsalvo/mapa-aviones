@@ -3,19 +3,21 @@ import MapView from './components/MapView';
 import InfoVuelo from './components/Data';
 import Chat from './components/Chat';
 import { useState } from 'react';
+import socket from "./components/Socket";
 
 
 function App() {
   const [name, setName] = useState(""); 
   const [registrado, setRegistrado] = useState(false);
   
+  
   const registrar = (e) => {
     e.preventDefault();
     if (name !== "") {
       setRegistrado(true);
+      
     }
   }
-
 
   return (
     <div>
@@ -35,7 +37,7 @@ function App() {
           <div>
           <h1>Mapa de Aviones</h1>
           <MapView/>
-          <Chat name={name}/>
+          <Chat name={name} socket={socket}/>
           <InfoVuelo/>
         </div>
       }

@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
-import socket from './Socket';
 
 
-const Chat = ({ name }) => {
+const Chat = ({ name, socket }) => {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
+    const [chat, setChat] = useState(null);
 
     useEffect(() => {
-        socket.on('chat', message => {
-            setMessages([...messages, message]);
+        setChat(socket);
+        socket.on('CHAT', (message) => {
+            setMessages((messages) => [...messages, message]);
         })
-    }, [messages])
+    }, [])
 
     const divRef = useRef(null);
     useEffect(() => {
@@ -19,7 +20,7 @@ const Chat = ({ name }) => {
 
     const submit = (e) => {
         e.preventDefault();
-        socket.emit('chat', name, message);
+        chat?.emit('CHAT', {name, message, date: new Date()});
         setMessage("");
     }
 
@@ -27,7 +28,7 @@ const Chat = ({ name }) => {
         <div className='ChatVivo'>
             <h3>Chat en Vivo</h3>
             <div className='miChat'>
-                {messages.map((e, i) => <div key={i}><div>{e.name}:</div><div>{e.message}</div></div>)}
+                {messages.map((msg) => <div key={msg.name}><div>{msg.name}:{Date(msg.date)}</div><div>{msg.message}</div></div>)}
                 <div ref={divRef} ></div>
             </div>
             <form onSubmit={submit}>
