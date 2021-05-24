@@ -6,8 +6,8 @@ const MapView = () => {
     return(
     <div>
         <MapContainer
-        center={[51.0, 19.0]}
-        zoom={4}
+        center={[0.0, 0.0]}
+        zoom={1.5}
         >
         <TileLayer 
         url='https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png' 
