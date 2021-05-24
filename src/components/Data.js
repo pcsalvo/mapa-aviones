@@ -24,6 +24,13 @@ const InfoVuelo = ({socket}) => {
                     <p>Avión: {flight.plane}</p>
                     <p>Asientos: {flight.seats}</p>
                     <p>Pasajeros: {flight.passengers.length}</p>
+                    <p>Detalle:</p>
+                    {
+                        flight.passengers.map((psj) => 
+                        <div className='Pasajeros'>
+                        <p>* {psj.name} - {psj.age} años</p>
+                        </div>
+                        )}
                 </div>
             </div>)}
         </div>
