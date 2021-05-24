@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import socket from './Socket';
 
 
@@ -10,20 +10,25 @@ const Chat = ({ name }) => {
         socket.on('chat', message => {
             setMessages([...messages, message]);
         })
-
-        return () => {socket.off()}
     }, [messages])
+
+    const divRef = useRef(null);
+    useEffect(() => {
+        divRef.current.scrollIntoView({ behavior: 'smooth' })
+    })
 
     const submit = (e) => {
         e.preventDefault();
-        socket.emit('chat', name, message)
+        socket.emit('chat', name, message);
+        setMessage("");
     }
 
     return(
         <div className='ChatVivo'>
             <h3>Chat en Vivo</h3>
-            <div>
+            <div className='miChat'>
                 {messages.map((e, i) => <div key={i}><div>{e.name}:</div><div>{e.message}</div></div>)}
+                <div ref={divRef} ></div>
             </div>
             <form onSubmit={submit}>
                 <label htmlFor="">Escriba su message</label>
